@@ -1,0 +1,709 @@
+/* ============================================================
+   CUSTOM PROPERTIES
+   ============================================================ */
+:root {
+  --color-bg:           #F8F5EF;
+  --color-card:         #FFFFFF;
+  --color-text:         #1A1A1A;
+  --color-text-muted:   #666666;
+  --color-accent:       #9EC5E8;
+  --color-accent-dark:  #5A9BD4;
+  --color-border:       #E8E4DD;
+
+  --font-serif: 'IBM Plex Serif', Georgia, serif;
+  --font-sans:  'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:  'IBM Plex Mono', 'Courier New', monospace;
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+html {
+  font-size: 17px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   STICKY HEADER
+   ============================================================ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-nav {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-name {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--color-text);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  letter-spacing: 0.01em;
+  transition: color 150ms ease;
+}
+
+.nav-name:hover {
+  color: var(--color-accent-dark);
+}
+
+/* tabs centered between name and icons */
+.nav-tabs {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-tab {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-bottom: 3px solid transparent;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.nav-tab:hover {
+  color: var(--color-text);
+}
+
+.nav-tab.active {
+  color: var(--color-text);
+  border-bottom-color: var(--color-accent);
+}
+
+.nav-icons {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.icon-link {
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 50%;
+  transition: color 150ms ease, background-color 150ms ease;
+}
+
+.icon-link:hover {
+  color: var(--color-text);
+  background-color: rgba(158, 197, 232, 0.22);
+}
+
+/* ============================================================
+   MAIN
+   ============================================================ */
+.site-main {
+  flex: 1;
+}
+
+/* ============================================================
+   TAB PANELS
+   ============================================================ */
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+  animation: tabFadeIn 150ms ease forwards;
+}
+
+@keyframes tabFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ============================================================
+   CONTENT WRAPPER (Writing / Projects / About)
+   ============================================================ */
+.content-wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 64px 32px 80px;
+}
+
+/* ============================================================
+   HOME TAB — full-width baby blue band at top
+   ============================================================ */
+#panel-home {
+  background: linear-gradient(
+    to bottom,
+    rgba(158, 197, 232, 0.38) 0%,
+    rgba(158, 197, 232, 0.34) 30%,
+    rgba(158, 197, 232, 0.08) 60%,
+    transparent 80%
+  );
+}
+
+/* ============================================================
+   PROJECTS TAB — baby blue tint section background
+   ============================================================ */
+#panel-projects {
+  background-color: rgba(158, 197, 232, 0.13);
+}
+
+/* ============================================================
+   HERO (Home tab)
+   ============================================================ */
+.hero {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 88px 40px 80px;
+}
+
+.hero-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+  align-items: center;
+}
+
+/* Portrait placeholder circle */
+.hero-portrait {
+  flex-shrink: 0;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  border: 3px solid var(--color-accent);
+  overflow: hidden;
+  position: relative;
+  background-image: url('assets/portrait.jpg');
+  background-repeat: no-repeat;
+  background-size: 160%;          /* zoom — increase % to zoom in more */
+  background-position: center 5%; /* framing — increase % to pull face down */
+}
+
+.hero-portrait-img {
+  /* Visually hidden; kept in DOM for screen-reader alt text */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Text content block (right of portrait on desktop) */
+.hero-content {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.hero-name {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(42px, 6vw, 62px);
+  color: var(--color-text);
+  line-height: 1.08;
+  letter-spacing: -0.5px;
+  margin-bottom: 18px;
+}
+
+.hero-subtitle {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--color-text-muted);
+  margin-bottom: 22px;
+  line-height: 1.55;
+}
+
+.hero-bio {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-text);
+  margin-bottom: 36px;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 32px;
+}
+
+.hero-icons {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  padding: 12px 26px;
+  border-radius: 4px;
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-text);
+  border-color: var(--color-accent);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+  color: #fff;
+}
+
+.btn-secondary {
+  background-color: var(--color-card);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent-dark);
+}
+
+/* ============================================================
+   SECTION HEADINGS (Writing / Projects / About tabs)
+   ============================================================ */
+.section-heading {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 36px);
+  color: var(--color-text);
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.section-heading::after {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 3px;
+  background-color: var(--color-accent);
+  margin-top: 10px;
+  border-radius: 2px;
+}
+
+.section-intro {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--color-text-muted);
+  margin-bottom: 48px;
+}
+
+/* ============================================================
+   ARTICLE CARDS
+   ============================================================ */
+.article-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.article-card {
+  background-color: rgba(158, 197, 232, 0.09);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 28px 32px;
+  transition: box-shadow 150ms ease, border-color 150ms ease;
+}
+
+.article-card:hover {
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07), 0 0 0 1px var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.article-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 21px;
+  color: var(--color-text);
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+.article-meta {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+}
+
+.article-desc {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text);
+  margin-bottom: 16px;
+}
+
+.article-link {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-accent-dark);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.article-link:hover {
+  color: var(--color-accent);
+}
+
+/* ============================================================
+   PROJECT CARDS
+   ============================================================ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.project-card {
+  background-color: rgba(255, 255, 255, 0.70);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 150ms ease, border-color 150ms ease;
+}
+
+.project-card:hover {
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07), 0 0 0 1px var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.project-name {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 21px;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.project-tagline {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  font-style: italic;
+  margin-bottom: 14px;
+}
+
+.project-desc {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--color-text);
+  flex: 1;
+  margin-bottom: 24px;
+}
+
+.project-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ============================================================
+   ABOUT TAB
+   ============================================================ */
+.about-bio {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-text);
+  max-width: 720px;
+  margin-bottom: 52px;
+}
+
+.about-section {
+  margin-bottom: 44px;
+}
+
+.about-section-heading {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--color-text);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 4px;
+}
+
+.info-table {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-row {
+  display: flex;
+  gap: 40px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-border);
+  align-items: baseline;
+}
+
+.info-label {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text);
+  flex: 0 0 220px;
+  min-width: 0;
+}
+
+.info-value {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.contact-link {
+  color: var(--color-accent-dark);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: color 150ms ease;
+}
+
+.contact-link:hover {
+  color: var(--color-accent);
+}
+
+/* ============================================================
+   OUTSIDE OF WORK LIST (About tab)
+   ============================================================ */
+.outside-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.outside-list li {
+  position: relative;
+  padding: 10px 0 10px 20px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--color-text);
+  line-height: 1.5;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.outside-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 18px;
+  width: 5px;
+  height: 5px;
+  background-color: var(--color-accent);
+  border-radius: 50%;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+  background-color: var(--color-accent);
+  border-top: none;
+  padding: 28px 32px;
+  text-align: center;
+}
+
+.footer-text {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+/* ============================================================
+   RESPONSIVE — tablet / nav collapse
+   ============================================================ */
+@media (max-width: 860px) {
+  .site-nav {
+    gap: 16px;
+    padding: 0 20px;
+  }
+}
+
+/* hide nav name so tabs + icons fit on medium screens */
+@media (max-width: 640px) {
+  .nav-name {
+    display: none;
+  }
+
+  .site-nav {
+    padding: 0 16px;
+    height: 56px;
+    gap: 0;
+    justify-content: space-between;
+  }
+
+  .nav-tabs {
+    flex: 1;
+    gap: 0;
+  }
+
+  .nav-tab {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .nav-icons {
+    gap: 12px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — mobile single column (768px breakpoint)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* hero: portrait stacks above content */
+  .hero {
+    padding: 56px 20px 56px;
+  }
+
+  .hero-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+    text-align: center;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero-portrait {
+    width: 180px;
+    height: 180px;
+  }
+
+  .hero-subtitle {
+    font-size: 17px;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-icons {
+    justify-content: center;
+  }
+
+  .btn {
+    text-align: center;
+  }
+
+  .content-wrap {
+    padding: 44px 20px 64px;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .info-row {
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 0;
+  }
+
+  .info-label {
+    flex: none;
+  }
+
+  .article-card,
+  .project-card {
+    padding: 22px 20px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — small mobile
+   ============================================================ */
+@media (max-width: 400px) {
+  /* hide nav icons; they're still in the hero */
+  .nav-icons {
+    display: none;
+  }
+
+  .nav-tabs {
+    justify-content: space-around;
+  }
+
+  .nav-tab {
+    padding: 8px 8px;
+    font-size: 13px;
+  }
+}
